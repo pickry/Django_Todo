@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtZHnhCIZiET6HkHNP7lvKhhXxKvAy562zkg&usqp=CAU"
+    />
+    <title>The list</title>
+  </head>
+  <style>
+    .head {
+      display: flex;
+      justify-content: space-between;
+      color: #000000;
+      padding: 10px;
+      border-radius: 5px 5px 0 0;
+      background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #cee9b6 25%,
+        #8fc79a 50%,
+        #5e9387 75%,
+        #2d8d79 100%
+      );
+    }
+
+    .head {
+      color: #2d8d79;
+      text-decoration: none;
+    }
+    .button {
+      border: 2px solid #2d8d79;
+      background-color: #cee9b6;
+      color: #000000;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .del {
+      text-decoration: none;
+      font-weight: 900;
+      color: #000000;
+      font-size: 22px;
+      line-height: 0;
+      float: inline-end;
+    }
+  </style>
+  <body
+    style="
+      background-color: #cee9b6;
+      color: #2d8d79;
+      border-style: inset;
+      border-width: 5px;
+      border-color: #5e9387;
+    "
+  >
+    <div class="head">
+      <h1>__THE__TODO__LIST__</h1>
+    </div>
+
+    <div class="additem">
+      <form
+        action="/addTodoItem/"
+        method="post"
+        style="margin-top: 20px; display: flex"
+      >
+        {% csrf_token %}
+        <input type="text" name="content" />
+        <input class="button" type="submit" value="Add Todo Item" />
+      </form>
+    </div>
+
+    <ol>
+      {% for i in all_items %}
+      
+      <li>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>{{ i.content }}</p>
+                </div>
+              <div class="col-md-6">
+                <form action="/deleteTodoItem/{{i.id}}/" method="post">
+                  {% csrf_token %}
+                  <input type="submit" value="&#215;" style="text-align: left" />
+                </form>
+              </div>
+            </div>
+        </div>
+      </li>
+
+      {% endfor %}
+    </ol>
+  </body>
+</html>

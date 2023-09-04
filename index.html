@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtZHnhCIZiET6HkHNP7lvKhhXxKvAy562zkg&usqp=CAU"
+    />
+    <title>The list</title>
+  </head>
+  <style>
+    .head {
+      display: flex;
+      justify-content: space-between;
+      color: #000000;
+      padding: 10px;
+      border-radius: 5px 5px 0 0;
+      background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #cee9b6 25%,
+        #8fc79a 50%,
+        #5e9387 75%,
+        #2d8d79 100%
+      );
+    }
+
+    .head {
+      color: #2d8d79;
+      text-decoration: none;
+      text-shadow: #000000;
+      
+    }
+    .button {
+      border: 2px solid #2d8d79;
+      background-color: #cee9b6;
+      color: #000000;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .inp {
+      border: 2px solid #2d8d79;
+      background-color: #ffffff;
+      color: #000000;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: text;
+      text-decoration: none;
+    }
+    .del {
+      text-decoration: none;
+      font-weight: 900;
+      color: #ffffff;
+      font-size: 22px;
+      line-height: 0;
+      float: inline-end;
+    }
+  </style>
+  <body
+    style="
+      background-color: #cee9b6;
+      color: #2d8d79;
+      border-style: inset;
+      border-width: 5px;
+      border-color: #5e9387;
+    "
+  >
+    <div class="head">
+      <h1>__THE__TODO__LIST__</h1>
+      <a href="/deletelist/" style="text-align: left;color:azure">&#8634;Reset</a>
+    </div>
+
+    <div class="additem">
+      <form
+        action="/addTodoItem/"
+        method="post"
+        style="margin-top: 20px; display: flex;"
+      >
+        {% csrf_token %}
+        <input class="inp" type="text" name="content" />
+        <input class="button" type="submit" value="Add Todo Item" />
+      </form>
+    </div>
+
+    <ol>
+      {% for i in all_items %}
+      <li>{{ i.content }}
+            <a class="del" href="/deleteTodoItem/{{i.id}}/">&#215;</a>
+        
+      </li>
+
+      {% endfor %}
+    </ol>
+  </body>
+</html>
